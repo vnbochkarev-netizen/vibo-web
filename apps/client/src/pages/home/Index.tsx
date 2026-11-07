@@ -12,6 +12,7 @@ import {
   Sparkles,
   Zap,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SiteShell } from "@/components/site/SiteShell";
 import { useLanguage, type Language } from "@/components/site/LanguageProvider";
@@ -176,9 +177,24 @@ const copy: Record<Language, Copy> = {
   },
 };
 
+const steps = [
+  { call: "vibo.add", arg: '"client anna", "pays on the 1st"', out: ["→ saved · tier L1", "→ 41 tokens written"] },
+  { call: "vibo.search", arg: '"invoice terms"', out: ["→ 4 relevant facts · 66ms", "→ tokens: 148 / 7,840"] },
+  { call: "vibo.archive", arg: '"payment terms"', out: ["→ 3 fragments · 12ms", "→ 9 MB → 808 KB"] },
+  { call: "vibo.mask", arg: '"sk-live-…"', out: ["→ 2 secrets blocked", "→ value never left the host"] },
+];
+
 export default function HomePage() {
   const { language } = useLanguage();
   const text = copy[language];
+  const [active, setActive] = useState(0);
+
+  // One skill is called at a time: the link lights up and the terminal answers.
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => setActive((current) => (current + 1) % steps.length), 2800);
+    return () => window.clearInterval(id);
+  }, []);
   usePageMeta(
     language === "ru" ? "ViBo — модульные skills для ИИ-агентов" : language === "zh" ? "ViBo — AI 智能体的模块化技能" : "ViBo — Modular skills for AI agents",
     text.lead,
@@ -207,22 +223,29 @@ export default function HomePage() {
               <div className="orbit">
                 <span className="orbit-ring orbit-ring-outer" />
                 <span className="orbit-ring orbit-ring-inner" />
+                <svg className="orbit-links" viewBox="0 0 340 340" aria-hidden="true">
+                  <line x1="170" y1="170" x2="170" y2="36" className={`link${active === 0 ? " on" : ""}`} />
+                  <line x1="170" y1="170" x2="304" y2="170" className={`link${active === 1 ? " on" : ""}`} />
+                  <line x1="170" y1="170" x2="170" y2="304" className={`link${active === 2 ? " on" : ""}`} />
+                  <line x1="170" y1="170" x2="36" y2="170" className={`link${active === 3 ? " on" : ""}`} />
+                </svg>
                 <div className="orbit-core">
                   <span className="orbit-pulse" />
                   <img src={IMAGES.BRAND_DOT_LOGO} alt="" width="72" height="72" />
                 </div>
-                <div className="orbit-spinner">
-                  <div className="orbit-node node-1"><span className="orbit-label"><Database size={15} /> memory</span></div>
-                  <div className="orbit-node node-2"><span className="orbit-label"><Search size={15} /> search</span></div>
-                  <div className="orbit-node node-3"><span className="orbit-label"><Archive size={15} /> archive</span></div>
-                  <div className="orbit-node node-4"><span className="orbit-label"><LockKeyhole size={15} /> privacy</span></div>
-                </div>
+                <div className={`orbit-node node-1${active === 0 ? " is-active" : ""}`}><Database size={15} /> memory</div>
+                <div className={`orbit-node node-2${active === 1 ? " is-active" : ""}`}><Search size={15} /> search</div>
+                <div className={`orbit-node node-3${active === 2 ? " is-active" : ""}`}><Archive size={15} /> archive</div>
+                <div className={`orbit-node node-4${active === 3 ? " is-active" : ""}`}><LockKeyhole size={15} /> privacy</div>
               </div>
               <div className="terminal">
                 <div className="terminal-top"><span /><span /><span /></div>
-                <p className="terminal-line"><span className="blue">vibo.search</span>(<span className="green">"server context"</span>)</p>
-                <p className="terminal-line">→ 4 relevant facts · 66ms</p>
-                <p className="terminal-line">→ tokens: <span className="green">148</span> / 7,840</p>
+                <div className="terminal-body" key={active}>
+                  <p className="terminal-line"><span className="blue">{steps[active].call}</span>({steps[active].arg})</p>
+                  {steps[active].out.map((line) => (
+                    <p className="terminal-line" key={line}>{line}</p>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
