@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { SiteShell } from "@/components/site/SiteShell";
 import { useLanguage, type Language } from "@/components/site/LanguageProvider";
 import { usePageMeta } from "@/components/site/usePageMeta";
+import { IMAGES } from "@/assets/images";
 
 type Copy = {
   eyebrow: string;
@@ -131,17 +132,24 @@ export default function HomePage() {
                 {text.proof.map((item) => <span key={item}><Check size={14} /> {item}</span>)}
               </div>
             </div>
-            <div className="memory-stage" aria-label="ViBo memory retrieval example">
+            <div className="memory-stage" aria-label="ViBo modular agent network">
+              <div className="orbit">
+                <span className="orbit-ring orbit-ring-outer" />
+                <span className="orbit-ring orbit-ring-inner" />
+                <div className="orbit-core">
+                  <img src={IMAGES.BRAND_DOT_LOGO} alt="" width="72" height="72" />
+                </div>
+                <div className="orbit-node node-1"><Database size={15} /> memory</div>
+                <div className="orbit-node node-2"><Search size={15} /> search</div>
+                <div className="orbit-node node-3"><Archive size={15} /> archive</div>
+                <div className="orbit-node node-4"><LockKeyhole size={15} /> privacy</div>
+              </div>
               <div className="terminal">
                 <div className="terminal-top"><span /><span /><span /></div>
                 <p className="terminal-line"><span className="blue">vibo.search</span>(<span className="green">"server context"</span>)</p>
                 <p className="terminal-line">→ 4 relevant facts · 66ms</p>
                 <p className="terminal-line">→ tokens: <span className="green">148</span> / 7,840</p>
               </div>
-              <div className="graph-node node-a"><Database size={17} /> active facts</div>
-              <div className="graph-node node-b"><GitBranch size={17} /> related context</div>
-              <div className="graph-node node-c"><FileKey size={17} /> encrypted secret</div>
-              <span className="graph-line line-a" /><span className="graph-line line-b" />
             </div>
           </div>
           <div className="metrics-strip">
