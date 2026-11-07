@@ -209,7 +209,13 @@ button:focus-visible, a:focus-visible {
 .micro-proof svg { color: var(--primary); }
 .memory-stage {
   position: relative;
-  min-height: 510px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 26px;
+  padding: 34px 32px 30px;
+  min-height: 560px;
   border: 1px solid #d8dfeb;
   border-radius: 28px;
   overflow: hidden;
@@ -223,15 +229,16 @@ button:focus-visible, a:focus-visible {
 .memory-stage::before {
   content: "";
   position: absolute;
-  inset: 15%;
+  inset: 22%;
   border-radius: 50%;
-  background: rgba(255, 100, 47, 0.13);
-  filter: blur(70px);
+  background: rgba(255, 100, 47, 0.07);
+  filter: blur(80px);
 }
 .terminal {
-  position: absolute;
-  inset: 42px 38px auto;
+  position: relative;
   z-index: 2;
+  width: 100%;
+  max-width: 400px;
   padding: 18px;
   border: 1px solid #d5ddea;
   border-radius: 15px;
@@ -473,25 +480,28 @@ button:focus-visible, a:focus-visible {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 380px;
+  width: 300px;
+  height: 300px;
+  flex: 0 0 auto;
 }
 .orbit-ring {
   position: absolute;
   border-radius: 50%;
   border: 1px dashed rgba(21, 87, 255, 0.18);
 }
-.orbit-ring-outer { width: 340px; height: 340px; }
-.orbit-ring-inner { width: 210px; height: 210px; border-style: solid; border-color: rgba(21, 87, 255, 0.12); }
+.orbit-ring-outer { width: 300px; height: 300px; }
+.orbit-ring-inner { width: 188px; height: 188px; border-style: solid; border-color: rgba(21, 87, 255, 0.12); }
 .orbit-links {
   position: absolute;
-  width: 340px;
-  height: 340px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   overflow: visible;
 }
 .link {
-  stroke: rgba(23, 29, 39, 0.12);
-  stroke-width: 1;
+  stroke: rgba(23, 29, 39, 0.3);
+  stroke-width: 1.2;
   transition: stroke 0.35s ease;
 }
 .link.on {
@@ -507,15 +517,15 @@ button:focus-visible, a:focus-visible {
   z-index: 2;
   display: grid;
   place-items: center;
-  width: 128px;
-  height: 128px;
+  width: 112px;
+  height: 112px;
   border-radius: 50%;
   background: #ffffff;
   border: 1px solid rgba(21, 87, 255, 0.18);
   box-shadow: 0 18px 44px rgba(23, 29, 39, 0.08);
   transition: box-shadow 0.4s ease;
 }
-.orbit-core img { width: 76px; height: 76px; object-fit: contain; }
+.orbit-core img { width: 66px; height: 66px; object-fit: contain; }
 .orbit-pulse {
   position: absolute;
   inset: -14px;
@@ -551,10 +561,10 @@ button:focus-visible, a:focus-visible {
 }
 .orbit-node svg { color: var(--primary); transition: color 0.3s ease; }
 
-.node-1 { top: 0; left: 50%; }
-.node-2 { top: 50%; left: 100%; }
-.node-3 { top: 100%; left: 50%; }
-.node-4 { top: 50%; left: 0; }
+.node-1 { top: 5%; left: 50%; }
+.node-2 { top: 50%; left: 94%; }
+.node-3 { top: 95%; left: 50%; }
+.node-4 { top: 50%; left: 6%; }
 
 .terminal-body { animation: terminal-in 0.4s ease both; }
 @keyframes terminal-in {
@@ -571,10 +581,12 @@ button:focus-visible, a:focus-visible {
   [data-reveal] { opacity: 1; transition: none; }
 }
 @media (max-width: 680px) {
-  .orbit { min-height: 320px; }
-  .orbit-ring-outer { width: 280px; height: 280px; }
-  .node-2 { right: -6%; }
-  .node-4 { left: -6%; }
+  .orbit { width: 260px; height: 260px; }
+  .orbit-ring-outer { width: 260px; height: 260px; }
+  .orbit-ring-inner { width: 164px; height: 164px; }
+  .orbit-core { width: 96px; height: 96px; }
+  .orbit-core img { width: 56px; height: 56px; }
+  .memory-stage { min-height: 520px; padding: 26px 20px 24px; }
 }
 
 /* --- products published outside the licence: MCP server and open protocol --- */

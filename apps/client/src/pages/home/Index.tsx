@@ -179,10 +179,10 @@ const copy: Record<Language, Copy> = {
 };
 
 const targets = [
-  { x: 170, y: 36 },
-  { x: 304, y: 170 },
-  { x: 170, y: 304 },
-  { x: 36, y: 170 },
+  { x: 170, y: 18 },
+  { x: 282, y: 170 },
+  { x: 170, y: 322 },
+  { x: 58, y: 170 },
 ];
 
 const steps = [
@@ -233,10 +233,10 @@ export default function HomePage() {
                 <span className="orbit-ring orbit-ring-outer" />
                 <span className="orbit-ring orbit-ring-inner" />
                 <svg className="orbit-links" viewBox="0 0 340 340" aria-hidden="true">
-                  <line x1="170" y1="170" x2="170" y2="36" className={`link${active === 0 ? " on" : ""}`} />
-                  <line x1="170" y1="170" x2="304" y2="170" className={`link${active === 1 ? " on" : ""}`} />
-                  <line x1="170" y1="170" x2="170" y2="304" className={`link${active === 2 ? " on" : ""}`} />
-                  <line x1="170" y1="170" x2="36" y2="170" className={`link${active === 3 ? " on" : ""}`} />
+                  <line x1="170" y1="170" x2="170" y2="18" className={`link${active === 0 ? " on" : ""}`} />
+                  <line x1="170" y1="170" x2="282" y2="170" className={`link${active === 1 ? " on" : ""}`} />
+                  <line x1="170" y1="170" x2="170" y2="322" className={`link${active === 2 ? " on" : ""}`} />
+                  <line x1="170" y1="170" x2="58" y2="170" className={`link${active === 3 ? " on" : ""}`} />
                   {!reduced && (
                     <motion.circle
                       key={active}
