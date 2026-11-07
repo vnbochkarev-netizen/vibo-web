@@ -137,12 +137,15 @@ export default function HomePage() {
                 <span className="orbit-ring orbit-ring-outer" />
                 <span className="orbit-ring orbit-ring-inner" />
                 <div className="orbit-core">
+                  <span className="orbit-pulse" />
                   <img src={IMAGES.BRAND_DOT_LOGO} alt="" width="72" height="72" />
                 </div>
-                <div className="orbit-node node-1"><Database size={15} /> memory</div>
-                <div className="orbit-node node-2"><Search size={15} /> search</div>
-                <div className="orbit-node node-3"><Archive size={15} /> archive</div>
-                <div className="orbit-node node-4"><LockKeyhole size={15} /> privacy</div>
+                <div className="orbit-spinner">
+                  <div className="orbit-node node-1"><span className="orbit-label"><Database size={15} /> memory</span></div>
+                  <div className="orbit-node node-2"><span className="orbit-label"><Search size={15} /> search</span></div>
+                  <div className="orbit-node node-3"><span className="orbit-label"><Archive size={15} /> archive</span></div>
+                  <div className="orbit-node node-4"><span className="orbit-label"><LockKeyhole size={15} /> privacy</span></div>
+                </div>
               </div>
               <div className="terminal">
                 <div className="terminal-top"><span /><span /><span /></div>

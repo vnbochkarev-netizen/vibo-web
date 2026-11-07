@@ -511,10 +511,61 @@ button:focus-visible, a:focus-visible {
   box-shadow: 0 6px 18px rgba(23, 29, 39, 0.05);
 }
 .orbit-node svg { color: var(--primary); }
-.node-1 { top: 6%; left: 50%; transform: translateX(-50%); }
-.node-2 { top: 50%; right: -2%; transform: translateY(-50%); }
-.node-3 { bottom: 6%; left: 50%; transform: translateX(-50%); }
-.node-4 { top: 50%; left: -2%; transform: translateY(-50%); }
+.orbit-spinner {
+  position: absolute;
+  inset: 0;
+  width: 340px;
+  height: 340px;
+  margin: auto;
+  animation: orbit-spin 56s linear infinite;
+}
+.orbit-node { position: absolute; transform: translate(-50%, -50%); }
+.node-1 { top: 0; left: 50%; }
+.node-2 { top: 50%; left: 100%; }
+.node-3 { top: 100%; left: 50%; }
+.node-4 { top: 50%; left: 0; }
+.orbit-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  animation: orbit-spin-reverse 56s linear infinite;
+}
+.orbit-pulse {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px solid rgba(21, 87, 255, 0.35);
+  animation: orbit-pulse 4.2s ease-out infinite;
+}
+@keyframes orbit-spin { to { transform: rotate(360deg); } }
+@keyframes orbit-spin-reverse { to { transform: rotate(-360deg); } }
+@keyframes orbit-pulse {
+  0%   { transform: scale(0.92); opacity: 0.75; }
+  70%  { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+@keyframes orbit-node-in {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+.node-1 { animation: orbit-node-in 0.45s 0.15s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.node-2 { animation: orbit-node-in 0.45s 0.3s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.node-3 { animation: orbit-node-in 0.45s 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.node-4 { animation: orbit-node-in 0.45s 0.6s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+
+/* scroll reveal — one soft entrance per section, never a stagger on every card */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s cubic-bezier(0.2, 0.7, 0.3, 1), transform 0.55s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+[data-reveal].is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-spinner, .orbit-label, .orbit-pulse { animation: none !important; }
+  .node-1, .node-2, .node-3, .node-4 { animation: none !important; }
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
 @media (max-width: 680px) {
   .orbit { min-height: 320px; }
   .orbit-ring-outer { width: 280px; height: 280px; }

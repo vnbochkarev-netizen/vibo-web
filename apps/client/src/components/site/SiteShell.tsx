@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { AppNavLink } from "@/components/navigation/AppNavLink";
 import { IMAGES } from "@/assets/images";
@@ -28,6 +28,30 @@ const nav = [
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+
+  // Sections ease in once as they enter the viewport. The attribute is only added
+  // from JS, so without scripting — or with reduced motion — nothing is hidden.
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const sections = Array.from(document.querySelectorAll<HTMLElement>(".site-shell section"));
+    if (!sections.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -80px 0px" },
+    );
+    sections.forEach((section) => {
+      section.setAttribute("data-reveal", "");
+      io.observe(section);
+    });
+    return () => io.disconnect();
+  }, []);
   const { language, setLanguage } = useLanguage();
 
   const languageSwitcher = (
