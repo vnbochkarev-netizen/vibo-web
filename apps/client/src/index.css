@@ -529,8 +529,12 @@ button:focus-visible, a:focus-visible {
   100% { transform: scale(1.28); opacity: 0; }
 }
 
-.orbit-node {
+.orbit-slot {
   position: absolute;
+  transform: translate(-50%, -50%);
+}
+.orbit-node {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -546,17 +550,11 @@ button:focus-visible, a:focus-visible {
   transition: border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 .orbit-node svg { color: var(--primary); transition: color 0.3s ease; }
-.orbit-node.is-active {
-  border-color: rgba(21, 87, 255, 0.55);
-  box-shadow: 0 10px 26px rgba(21, 87, 255, 0.16);
-  transform: translate(var(--shift-x, 0), var(--shift-y, 0)) scale(1.04);
-}
-.orbit-node.is-active svg { color: var(--primary); }
 
-.node-1 { top: 0; left: 50%; transform: translate(-50%, -50%); --shift-x: -50%; --shift-y: -50%; }
-.node-2 { top: 50%; left: 100%; transform: translate(-50%, -50%); --shift-x: -50%; --shift-y: -50%; }
-.node-3 { top: 100%; left: 50%; transform: translate(-50%, -50%); --shift-x: -50%; --shift-y: -50%; }
-.node-4 { top: 50%; left: 0; transform: translate(-50%, -50%); --shift-x: -50%; --shift-y: -50%; }
+.node-1 { top: 0; left: 50%; }
+.node-2 { top: 50%; left: 100%; }
+.node-3 { top: 100%; left: 50%; }
+.node-4 { top: 50%; left: 0; }
 
 .terminal-body { animation: terminal-in 0.4s ease both; }
 @keyframes terminal-in {

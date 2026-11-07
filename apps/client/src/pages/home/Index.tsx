@@ -13,6 +13,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { SiteShell } from "@/components/site/SiteShell";
 import { useLanguage, type Language } from "@/components/site/LanguageProvider";
@@ -177,6 +178,13 @@ const copy: Record<Language, Copy> = {
   },
 };
 
+const targets = [
+  { x: 170, y: 36 },
+  { x: 304, y: 170 },
+  { x: 170, y: 304 },
+  { x: 36, y: 170 },
+];
+
 const steps = [
   { call: "vibo.add", arg: '"client anna", "pays on the 1st"', out: ["→ saved · tier L1", "→ 41 tokens written"] },
   { call: "vibo.search", arg: '"invoice terms"', out: ["→ 4 relevant facts · 66ms", "→ tokens: 148 / 7,840"] },
@@ -188,11 +196,12 @@ export default function HomePage() {
   const { language } = useLanguage();
   const text = copy[language];
   const [active, setActive] = useState(0);
+  const reduced = useReducedMotion() ?? false;
 
   // One skill is called at a time: the link lights up and the terminal answers.
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => setActive((current) => (current + 1) % steps.length), 2800);
+    const id = window.setInterval(() => setActive((current) => (current + 1) % steps.length), 3200);
     return () => window.clearInterval(id);
   }, []);
   usePageMeta(
@@ -228,15 +237,57 @@ export default function HomePage() {
                   <line x1="170" y1="170" x2="304" y2="170" className={`link${active === 1 ? " on" : ""}`} />
                   <line x1="170" y1="170" x2="170" y2="304" className={`link${active === 2 ? " on" : ""}`} />
                   <line x1="170" y1="170" x2="36" y2="170" className={`link${active === 3 ? " on" : ""}`} />
+                  {!reduced && (
+                    <motion.circle
+                      key={active}
+                      r="3.4"
+                      fill="#1557FF"
+                      initial={{ cx: 170, cy: 170, opacity: 0 }}
+                      animate={{ cx: targets[active].x, cy: targets[active].y, opacity: [0, 1, 1, 0] }}
+                      transition={{ duration: 1.15, times: [0, 0.12, 0.78, 1], ease: "easeInOut" }}
+                    />
+                  )}
                 </svg>
                 <div className="orbit-core">
                   <span className="orbit-pulse" />
                   <img src={IMAGES.BRAND_DOT_LOGO} alt="" width="72" height="72" />
                 </div>
-                <div className={`orbit-node node-1${active === 0 ? " is-active" : ""}`}><Database size={15} /> memory</div>
-                <div className={`orbit-node node-2${active === 1 ? " is-active" : ""}`}><Search size={15} /> search</div>
-                <div className={`orbit-node node-3${active === 2 ? " is-active" : ""}`}><Archive size={15} /> archive</div>
-                <div className={`orbit-node node-4${active === 3 ? " is-active" : ""}`}><LockKeyhole size={15} /> privacy</div>
+                <div className="orbit-slot node-1">
+                  <motion.div
+                    className="orbit-node"
+                    animate={reduced ? undefined : { scale: active === 0 ? 1.05 : 1,
+                      borderColor: active === 0 ? "rgba(21,87,255,0.55)" : "#DFE4EC",
+                      boxShadow: active === 0 ? "0 10px 26px rgba(21,87,255,0.16)" : "0 6px 18px rgba(23,29,39,0.05)" }}
+                    transition={{ type: "spring", stiffness: 240, damping: 22 }}
+                  ><Database size={15} /> memory</motion.div>
+                </div>
+                <div className="orbit-slot node-2">
+                  <motion.div
+                    className="orbit-node"
+                    animate={reduced ? undefined : { scale: active === 1 ? 1.05 : 1,
+                      borderColor: active === 1 ? "rgba(21,87,255,0.55)" : "#DFE4EC",
+                      boxShadow: active === 1 ? "0 10px 26px rgba(21,87,255,0.16)" : "0 6px 18px rgba(23,29,39,0.05)" }}
+                    transition={{ type: "spring", stiffness: 240, damping: 22 }}
+                  ><Search size={15} /> search</motion.div>
+                </div>
+                <div className="orbit-slot node-3">
+                  <motion.div
+                    className="orbit-node"
+                    animate={reduced ? undefined : { scale: active === 2 ? 1.05 : 1,
+                      borderColor: active === 2 ? "rgba(21,87,255,0.55)" : "#DFE4EC",
+                      boxShadow: active === 2 ? "0 10px 26px rgba(21,87,255,0.16)" : "0 6px 18px rgba(23,29,39,0.05)" }}
+                    transition={{ type: "spring", stiffness: 240, damping: 22 }}
+                  ><Archive size={15} /> archive</motion.div>
+                </div>
+                <div className="orbit-slot node-4">
+                  <motion.div
+                    className="orbit-node"
+                    animate={reduced ? undefined : { scale: active === 3 ? 1.05 : 1,
+                      borderColor: active === 3 ? "rgba(21,87,255,0.55)" : "#DFE4EC",
+                      boxShadow: active === 3 ? "0 10px 26px rgba(21,87,255,0.16)" : "0 6px 18px rgba(23,29,39,0.05)" }}
+                    transition={{ type: "spring", stiffness: 240, damping: 22 }}
+                  ><LockKeyhole size={15} /> privacy</motion.div>
+                </div>
               </div>
               <div className="terminal">
                 <div className="terminal-top"><span /><span /><span /></div>
