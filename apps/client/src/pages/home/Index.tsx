@@ -1,5 +1,6 @@
 import {
   ArrowRight,
+  ArrowUpRight,
   Archive,
   Check,
   CircleDollarSign,
@@ -34,6 +35,10 @@ type Copy = {
   proofItems: [string, string][];
   ctaTitle: string;
   ctaBody: string;
+  moreKicker: string;
+  moreTitle: string;
+  moreLead: string;
+  more: { name: string; tag: string; body: string; meta: string; href: string; cta: string }[];
 };
 
 const copy: Record<Language, Copy> = {
@@ -58,6 +63,28 @@ const copy: Record<Language, Copy> = {
     proofItems: [["4–8 facts", "Typical answer context instead of megabytes of memory."], ["66 ms", "Measured semantic search at 100,000 facts."], ["$5/mo", "One license for memory, archive, search savings, and privacy."]],
     ctaTitle: "Start assembling a more capable agent.",
     ctaBody: "Connect ViBo as a skill, adapter, Python API, or CLI. Begin with memory and privacy today, then expand into a reusable agent-skill ecosystem.",
+
+    moreKicker: "Open tools from the network",
+    moreTitle: "Two more things you can use today.",
+    moreLead: "Both are small on purpose: one keeps the toolset to 217 tokens, the other keeps memory to one file and one script.",
+    more: [
+      {
+        name: "vibocode MCP",
+        tag: "Open source · npm · v0.1.3",
+        body: "Two MCP tools instead of an API catalog: search finds the right endpoints, run executes model-written Python in a sandbox with memory and allowlisted HTTP.",
+        meta: "217 tokens for the whole toolset · 1,272 GitHub endpoints cost 79,525 as plain tools",
+        href: "https://github.com/vnbochkarev-netizen/vibocode-mcp",
+        cta: "View on GitHub",
+      },
+      {
+        name: "Agent Memory Protocol",
+        tag: "Free · MIT",
+        body: "Durable agent memory without a vector database: layered facts, keyword recall, claim verification, and secrets stored only as environment-variable pointers.",
+        meta: "One SKILL.md and one standard-library script · Python 3.9+",
+        href: "https://github.com/vnbochkarev-netizen/vibo-memory-protocol",
+        cta: "Get the skill",
+      },
+    ],
   },
   ru: {
     eyebrow: "Модульные skills для ИИ-агентов · Live v1.0.12",
@@ -80,6 +107,28 @@ const copy: Record<Language, Copy> = {
     proofItems: [["4–8 фактов", "Типичный контекст ответа вместо мегабайт памяти."], ["66 мс", "Измеренный семантический поиск по 100 000 фактов."], ["$5/мес", "Память, архив, экономия поиска и приватность в одной лицензии."]],
     ctaTitle: "Начните собирать более способного агента.",
     ctaBody: "Подключите ViBo как skill, адаптер, Python API или CLI. Начните с памяти и приватности, затем расширяйте экосистему навыков агента.",
+
+    moreKicker: "Открытые инструменты сети",
+    moreTitle: "Ещё два продукта, которыми можно пользоваться сегодня.",
+    moreLead: "Оба намеренно небольшие: первый держит набор инструментов в 217 токенах, второй — память в одном файле и одном скрипте.",
+    more: [
+      {
+        name: "vibocode MCP",
+        tag: "Открытый код · npm · v0.1.3",
+        body: "Два инструмента MCP вместо каталога API: search находит нужные эндпоинты, run выполняет написанный моделью Python в песочнице с памятью и белым списком HTTP.",
+        meta: "217 токенов на весь набор · 1 272 эндпоинта GitHub стоят 79 525 токенов как обычные инструменты",
+        href: "https://github.com/vnbochkarev-netizen/vibocode-mcp",
+        cta: "Открыть на GitHub",
+      },
+      {
+        name: "Agent Memory Protocol",
+        tag: "Бесплатно · MIT",
+        body: "Устойчивая память агента без векторной базы: слои фактов, поиск по ключевым словам, проверка утверждений и секреты только как ссылки на переменные окружения.",
+        meta: "Один SKILL.md и один скрипт на стандартной библиотеке · Python 3.9+",
+        href: "https://github.com/vnbochkarev-netizen/vibo-memory-protocol",
+        cta: "Получить навык",
+      },
+    ],
   },
   zh: {
     eyebrow: "AI 智能体模块化技能 · Live v1.0.12",
@@ -102,6 +151,28 @@ const copy: Record<Language, Copy> = {
     proofItems: [["4–8 条事实", "典型回答上下文，而不是数兆字节的记忆。"], ["66 毫秒", "在 100,000 条事实上的语义检索实测。"], ["$5/月", "记忆、归档、搜索节省与隐私合为一体。"]],
     ctaTitle: "开始组装更强大的智能体。",
     ctaBody: "以技能、适配器、Python API 或 CLI 连接 ViBo。从记忆与隐私开始，逐步扩展智能体技能生态。",
+
+    moreKicker: "网络中的开放工具",
+    moreTitle: "今天就能使用的另外两个产品。",
+    moreLead: "两者都刻意保持轻量：一个把工具集控制在 217 个令牌，另一个把记忆放进一个文件和一个脚本。",
+    more: [
+      {
+        name: "vibocode MCP",
+        tag: "开源 · npm · v0.1.3",
+        body: "两个 MCP 工具取代 API 目录：search 定位接口，run 在带记忆与白名单 HTTP 的沙箱中执行模型编写的 Python。",
+        meta: "整个工具集 217 个令牌 · 1,272 个 GitHub 接口作为普通工具需 79,525 个令牌",
+        href: "https://github.com/vnbochkarev-netizen/vibocode-mcp",
+        cta: "在 GitHub 查看",
+      },
+      {
+        name: "Agent Memory Protocol",
+        tag: "免费 · MIT",
+        body: "无需向量数据库的持久智能体记忆：分层事实、关键词检索、断言校验，密文仅以环境变量指针形式保存。",
+        meta: "一个 SKILL.md 加一个标准库脚本 · Python 3.9+",
+        href: "https://github.com/vnbochkarev-netizen/vibo-memory-protocol",
+        cta: "获取技能",
+      },
+    ],
   },
 };
 
@@ -189,6 +260,27 @@ export default function HomePage() {
                 <h3>{text.features[2].title}</h3><p>{text.features[2].body}</p>
               </article>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-compact">
+        <div className="container">
+          <span className="section-kicker">{text.moreKicker}</span>
+          <h2 className="section-title">{text.moreTitle}</h2>
+          <p className="section-lead">{text.moreLead}</p>
+          <div className="more-grid">
+            {text.more.map((item) => (
+              <article className="more-card" key={item.name}>
+                <span className="more-tag">{item.tag}</span>
+                <h3 className="more-name">{item.name}</h3>
+                <p className="more-body">{item.body}</p>
+                <p className="more-meta">{item.meta}</p>
+                <a className="more-link" href={item.href} target="_blank" rel="noreferrer">
+                  {item.cta} <ArrowUpRight size={16} />
+                </a>
+              </article>
+            ))}
           </div>
         </div>
       </section>
